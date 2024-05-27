@@ -106,7 +106,110 @@ class Solution {
     }
 }
 
-//
+// 31. Next Permutation
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i + 1] <= nums[i]) {
+            i--;
+        }
+        if (i >= 0) {
+            int j = nums.length - 1;
+            while (nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums, i, j);
+        }
+        reverse(nums, i + 1);
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    private void reverse(int[] nums, int start) {
+        int i = start, j = nums.length - 1;
+        while (i < j) {
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+
+}
+
+// 33. Search in Rotated Sorted Array
+class Solution {
+    public int search(int[] nums, int target) {
+        int index = -1;
+
+        for (int i=0;i<nums.length;i++){
+            if (nums[i]==target){
+                index = i;
+            }
+        }
+        return index;
+    }
+}
+
+// 34. Find First and Last Position of Element in Sorted Array
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int first = -1, last = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                if (first == -1) {
+                    first = i;
+                }
+                last = i;
+            }
+        }
+        return new int[]{first, last};
+    }
+}
+
+// 35. Search Insert Position
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int index=0;
+        int count=0;
+        for (int i=0;i<nums.length;i++)
+        {
+            if (target<=nums[i])
+            {
+                if (count == 0){
+                    index = i;
+                }
+                count++;
+            }
+            else
+            {
+                index = nums.length;
+            }
+        }
+        return index;
+    }
+}
+
+// 36. Valid Sudoku
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+    Set seen = new HashSet();
+    for (int i=0; i<9; ++i) {
+        for (int j=0; j<9; ++j) {
+            char number = board[i][j];
+            if (number != '.')
+                if (!seen.add(number + " in row " + i) ||
+                    !seen.add(number + " in column " + j) ||
+                    !seen.add(number + " in block " + i/3 + "-" + j/3))
+                    return false;
+        }
+    }
+    return true;
+}
+}
 
 
 
